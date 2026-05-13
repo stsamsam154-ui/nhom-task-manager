@@ -33,46 +33,114 @@ export default function Login() {
     }
   };
 
-  const inputStyle = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '14px', boxSizing: 'border-box' };
-  const eyeBtn = { position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' };
-
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-      <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', width: '360px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
-        <h2 style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
-          {isRegister ? '📝 Đăng ký' : '👋 Đăng nhập'}
-        </h2>
-        {error && <p style={{ color: 'red', marginBottom: '1rem', fontSize: '13px' }}>{error}</p>}
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    }}>
+      <div style={{
+        background: 'white',
+        padding: '2.5rem',
+        borderRadius: '20px',
+        width: '400px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '40px', marginBottom: '8px' }}>🗂️</div>
+          <h1 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b' }}>Task Board</h1>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '4px' }}>
+            {isRegister ? 'Tạo tài khoản mới' : 'Đăng nhập để tiếp tục'}
+          </p>
+        </div>
+
+        {error && (
+          <div style={{ background: '#fee2e2', color: '#ef4444', padding: '10px 14px', borderRadius: '10px', fontSize: '13px', marginBottom: '1rem' }}>
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           {isRegister && (
-            <div style={{ marginBottom: '10px' }}>
-              <input placeholder="Họ và tên" value={form.fullName} onChange={e => setForm({ ...form, fullName: e.target.value })} style={inputStyle} required />
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ fontSize: '13px', fontWeight: '500', color: '#475569', display: 'block', marginBottom: '6px' }}>Họ và tên</label>
+              <input
+                placeholder="Nhập họ và tên..."
+                value={form.fullName}
+                onChange={e => setForm({ ...form, fullName: e.target.value })}
+                required
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+              />
             </div>
           )}
-          <div style={{ marginBottom: '10px' }}>
-            <input placeholder="Email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} style={inputStyle} required />
+
+          <div style={{ marginBottom: '12px' }}>
+            <label style={{ fontSize: '13px', fontWeight: '500', color: '#475569', display: 'block', marginBottom: '6px' }}>Email</label>
+            <input
+              placeholder="Nhập email..."
+              type="email"
+              value={form.email}
+              onChange={e => setForm({ ...form, email: e.target.value })}
+              required
+              style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+            />
           </div>
-          <div style={{ position: 'relative', marginBottom: '10px' }}>
-            <input placeholder="Mật khẩu" type={showPassword ? 'text' : 'password'} value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} style={{ ...inputStyle, paddingRight: '40px' }} required />
-            <button type="button" style={eyeBtn} onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? '🙈' : '👁️'}
-            </button>
-          </div>
-          {isRegister && (
-            <div style={{ position: 'relative', marginBottom: '16px' }}>
-              <input placeholder="Nhập lại mật khẩu" type={showConfirm ? 'text' : 'password'} value={form.confirmPassword} onChange={e => setForm({ ...form, confirmPassword: e.target.value })} style={{ ...inputStyle, paddingRight: '40px' }} required />
-              <button type="button" style={eyeBtn} onClick={() => setShowConfirm(!showConfirm)}>
-                {showConfirm ? '🙈' : '👁️'}
+
+          <div style={{ marginBottom: '12px' }}>
+            <label style={{ fontSize: '13px', fontWeight: '500', color: '#475569', display: 'block', marginBottom: '6px' }}>Mật khẩu</label>
+            <div style={{ position: 'relative' }}>
+              <input
+                placeholder="Nhập mật khẩu..."
+                type={showPassword ? 'text' : 'password'}
+                value={form.password}
+                onChange={e => setForm({ ...form, password: e.target.value })}
+                required
+                style={{ width: '100%', padding: '10px 40px 10px 14px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+              />
+              <button type="button" onClick={() => setShowPassword(!showPassword)}
+                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }}>
+                {showPassword ? '🙈' : '👁️'}
               </button>
             </div>
+          </div>
+
+          {isRegister && (
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ fontSize: '13px', fontWeight: '500', color: '#475569', display: 'block', marginBottom: '6px' }}>Nhập lại mật khẩu</label>
+              <div style={{ position: 'relative' }}>
+                <input
+                  placeholder="Nhập lại mật khẩu..."
+                  type={showConfirm ? 'text' : 'password'}
+                  value={form.confirmPassword}
+                  onChange={e => setForm({ ...form, confirmPassword: e.target.value })}
+                  required
+                  style={{ width: '100%', padding: '10px 40px 10px 14px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+                />
+                <button type="button" onClick={() => setShowConfirm(!showConfirm)}
+                  style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }}>
+                  {showConfirm ? '🙈' : '👁️'}
+                </button>
+              </div>
+            </div>
           )}
-          <button type="submit" style={{ width: '100%', padding: '10px', background: '#4f46e5', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '500', fontSize: '14px' }}>
+
+          <button type="submit" style={{
+            width: '100%', padding: '12px', marginTop: '8px',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white', border: 'none', borderRadius: '10px',
+            cursor: 'pointer', fontWeight: '600', fontSize: '15px',
+            boxShadow: '0 4px 15px rgba(102,126,234,0.4)',
+          }}>
             {isRegister ? 'Đăng ký' : 'Đăng nhập'}
           </button>
         </form>
-        <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '14px' }}>
-          {isRegister ? 'Đã có tài khoản?' : 'Chưa có tài khoản?'}
-          <span onClick={() => { setIsRegister(!isRegister); setError(''); }} style={{ color: '#4f46e5', cursor: 'pointer', marginLeft: '4px' }}>
+
+        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '14px', color: '#64748b' }}>
+          {isRegister ? 'Đã có tài khoản? ' : 'Chưa có tài khoản? '}
+          <span onClick={() => { setIsRegister(!isRegister); setError(''); }}
+            style={{ color: '#667eea', cursor: 'pointer', fontWeight: '600' }}>
             {isRegister ? 'Đăng nhập' : 'Đăng ký'}
           </span>
         </p>

@@ -47,6 +47,12 @@ export class TasksService {
     return this.tasksRepository.save(task);
   }
 
+  async toggleImportant(id: number): Promise<Task> {
+    const task = await this.findOne(id);
+    task.isImportant = !task.isImportant;
+    return this.tasksRepository.save(task);
+  }
+  
   async remove(id: number): Promise<void> {
     await this.tasksRepository.delete(id);
   }
