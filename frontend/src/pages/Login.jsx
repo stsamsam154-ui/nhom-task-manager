@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import { useEffect, useState as useStateP } from 'react';
+import loginBlueBg from '../assets/login-blue-bg.jpg';
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
@@ -45,7 +45,17 @@ export default function Login() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', position: 'relative', overflow: 'hidden' }}>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundImage: `linear-gradient(135deg, rgba(46, 120, 190, 0.28), rgba(201, 247, 250, 0.2)), url(${loginBlueBg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
       
       {init && <Particles
         id="tsparticles"
@@ -54,17 +64,17 @@ export default function Login() {
           fpsLimit: 60,
           particles: {
             color: { value: '#ffffff' },
-            links: { color: '#ffffff', distance: 150, enable: true, opacity: 0.2, width: 1 },
-            move: { enable: true, speed: 1.5 },
-            number: { density: { enable: true, area: 800 }, value: 60 },
-            opacity: { value: 0.3 },
+            links: { color: '#ffffff', distance: 150, enable: true, opacity: 0.12, width: 1 },
+            move: { enable: true, speed: 1 },
+            number: { density: { enable: true, area: 900 }, value: 42 },
+            opacity: { value: 0.22 },
             size: { value: { min: 1, max: 3 } },
           },
         }}
         style={{ position: 'absolute', inset: 0 }}
       />}
 
-      <div style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)', padding: '2.5rem', borderRadius: '24px', width: '400px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', position: 'relative', zIndex: 10 }}>
+      <div style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(16px)', padding: '2.5rem', borderRadius: '24px', width: '400px', boxShadow: '0 24px 70px rgba(17, 71, 120, 0.24)', position: 'relative', zIndex: 10, border: '1px solid rgba(255,255,255,0.65)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ fontSize: '48px', marginBottom: '8px' }}>🗂️</div>
           <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#1e293b' }}>Task Board</h1>
@@ -120,14 +130,14 @@ export default function Login() {
             </div>
           )}
 
-          <button type="submit" style={{ width: '100%', padding: '13px', marginTop: '8px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: '800', fontSize: '15px', boxShadow: '0 4px 15px rgba(102,126,234,0.4)', fontFamily: 'Nunito, sans-serif' }}>
+          <button type="submit" style={{ width: '100%', padding: '13px', marginTop: '8px', background: 'linear-gradient(135deg, #2f8ed8 0%, #5fc6d8 100%)', color: 'white', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: '800', fontSize: '15px', boxShadow: '0 4px 15px rgba(47,142,216,0.35)', fontFamily: 'Nunito, sans-serif' }}>
             {isRegister ? 'Đăng ký' : 'Đăng nhập'}
           </button>
         </form>
 
         <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
           {isRegister ? 'Đã có tài khoản? ' : 'Chưa có tài khoản? '}
-          <span onClick={() => { setIsRegister(!isRegister); setError(''); }} style={{ color: '#667eea', cursor: 'pointer', fontWeight: '800' }}>
+          <span onClick={() => { setIsRegister(!isRegister); setError(''); }} style={{ color: '#2f8ed8', cursor: 'pointer', fontWeight: '800' }}>
             {isRegister ? 'Đăng nhập' : 'Đăng ký'}
           </span>
         </p>

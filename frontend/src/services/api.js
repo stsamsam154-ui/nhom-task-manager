@@ -32,4 +32,8 @@ export const commentService = {
   delete: (id) => api.delete(`/comments/${id}`),
 };
 
+export const userService = {
+  updateAvatar: (id, avatar) => api.put(`/users/${id}/avatar`, { avatar }),
+};
+
 export default api;

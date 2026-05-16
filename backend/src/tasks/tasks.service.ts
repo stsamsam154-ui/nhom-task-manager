@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+﻿import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Task } from './task.entity';
+import { Task, TaskStatus } from './task.entity';
 
 @Injectable()
 export class TasksService {
@@ -19,27 +19,41 @@ export class TasksService {
       where: { id },
       relations: ['assignee', 'comments'],
     });
-    if (!task) throw new NotFoundException('Task không tồn tại!');
+    if (!task) throw new NotFoundException('Task khong ton tai!');
     return task;
   }
 
-  async create(title: string, description: string, deadline: Date, assigneeId: number): Promise<Task> {
+  async create(
+    title: string,
+    description: string,
+    deadline: Date | null,
+    assigneeId: number,
+  ): Promise<Task> {
     const task = this.tasksRepository.create({
       title,
       description,
       deadline,
-      assignee: { id: assigneeId },
+      assignee: assigneeId ? { id: assigneeId } : null,
     });
     return this.tasksRepository.save(task);
   }
 
   async updateStatus(id: number, status: string): Promise<Task> {
+    if (!this.isValidStatus(status)) {
+      throw new BadRequestException('Trang thai task khong hop le!');
+    }
+
     const task = await this.findOne(id);
     task.status = status;
     return this.tasksRepository.save(task);
   }
 
-  async update(id: number, title: string, description: string, deadline: Date): Promise<Task> {
+  async update(
+    id: number,
+    title: string,
+    description: string,
+    deadline: Date | null,
+  ): Promise<Task> {
     const task = await this.findOne(id);
     task.title = title ?? task.title;
     task.description = description ?? task.description;
@@ -52,8 +66,13 @@ export class TasksService {
     task.isImportant = !task.isImportant;
     return this.tasksRepository.save(task);
   }
-  
+
   async remove(id: number): Promise<void> {
-    await this.tasksRepository.delete(id);
+    const result = await this.tasksRepository.delete(id);
+    if (!result.affected) throw new NotFoundException('Task khong ton tai!');
+  }
+
+  private isValidStatus(status: string): status is TaskStatus {
+    return Object.values(TaskStatus).includes(status as TaskStatus);
   }
 }

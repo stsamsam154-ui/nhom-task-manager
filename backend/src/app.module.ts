@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+﻿import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -17,12 +17,12 @@ import { Comment } from './comments/comment.entity';
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
         host: config.get('DB_HOST') || 'localhost',
-        port: 5432,
+        port: Number(config.get('DB_PORT') || 5432),
         username: config.get('DB_USERNAME') || 'postgres',
-        password: '123456',
+        password: config.get('DB_PASSWORD') || '123456',
         database: config.get('DB_NAME') || 'task_manager',
         entities: [User, Task, Comment],
-        synchronize: true,
+        synchronize: config.get('NODE_ENV') !== 'production',
       }),
       inject: [ConfigService],
     }),
