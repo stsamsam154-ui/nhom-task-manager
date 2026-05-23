@@ -1,4 +1,4 @@
-﻿import {
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -25,8 +25,8 @@ export class Task {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
-  description: string;
+  @Column({ type: 'varchar', nullable: true, default: null })
+  description: string | null;
 
   @Column({
     type: 'enum',
@@ -38,10 +38,10 @@ export class Task {
   @Column({ default: false })
   isImportant: boolean;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: null })
   tag: string | null;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, default: null })
   deadline: Date | null;
 
   @ManyToOne(() => User, { nullable: true, onDelete: 'SET NULL' })
