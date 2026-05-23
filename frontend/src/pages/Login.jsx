@@ -4,6 +4,7 @@ import { authService } from '../services/api';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import loginBlueBg from '../assets/login-blue-bg.jpg';
+import appIcon from '../assets/app-icon.png';
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
@@ -76,7 +77,7 @@ export default function Login() {
 
       <div style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(16px)', padding: '2.5rem', borderRadius: '24px', width: '400px', boxShadow: '0 24px 70px rgba(17, 71, 120, 0.24)', position: 'relative', zIndex: 10, border: '1px solid rgba(255,255,255,0.65)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '48px', marginBottom: '8px' }}>🗂️</div>
+          <img src={appIcon} alt="Task Board" style={{ width: '72px', height: '72px', borderRadius: '18px', objectFit: 'cover', marginBottom: '10px', boxShadow: '0 8px 22px rgba(17,71,120,0.22)' }} />
           <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#1e293b' }}>Task Board</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '4px', fontWeight: '500' }}>
             {isRegister ? 'Tạo tài khoản mới' : 'Đăng nhập để tiếp tục'}

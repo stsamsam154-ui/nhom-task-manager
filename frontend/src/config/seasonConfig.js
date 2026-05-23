@@ -1,25 +1,25 @@
 export const SEASON_CONFIG = {
   todo: {
     id: 'todo',
-    label: '🌸 Todo',
+    label: 'Cần làm',
     light: { bg: '#F4F8F3', accent: '#B7D8B0', text: '#2D5A27', particle: '#F7DDE2' },
     dark: { bg: '#1A231B', accent: '#4E6B50', text: '#B7D8B0', particle: '#EFCAD3' },
   },
   inprogress: {
     id: 'inprogress',
-    label: '☀️ In Progress',
+    label: 'Đang làm',
     light: { bg: '#EDF7FF', accent: '#7DB7E8', text: '#1A4A7A', particle: '#FFD166' },
     dark: { bg: '#16212D', accent: '#355C7D', text: '#7DB7E8', particle: '#FFE08A' },
   },
   review: {
     id: 'review',
-    label: '🍂 Review',
+    label: 'Đánh giá',
     light: { bg: '#FFF8F0', accent: '#E6B17E', text: '#7A3D0A', particle: '#D98A43' },
     dark: { bg: '#241C15', accent: '#7B5731', text: '#E6B17E', particle: '#E0A060' },
   },
   done: {
     id: 'done',
-    label: '❄️ Done',
+    label: 'Hoàn thành',
     light: { bg: '#F4FAFF', accent: '#B8D7F0', text: '#1A3D5C', particle: '#D9ECFF' },
     dark: { bg: '#161D24', accent: '#4A6480', text: '#B8D7F0', particle: '#CFE6FF' },
   },
@@ -27,13 +27,22 @@ export const SEASON_CONFIG = {
 
 export const COLUMNS = Object.values(SEASON_CONFIG);
 
+export const TASK_TAGS = [
+  { id: 'study', label: 'Học tập', bg: '#e0f2fe', text: '#0369a1' },
+  { id: 'team', label: 'Nhóm', bg: '#dcfce7', text: '#166534' },
+  { id: 'urgent', label: 'Gấp', bg: '#fee2e2', text: '#b91c1c' },
+  { id: 'personal', label: 'Cá nhân', bg: '#fef3c7', text: '#92400e' },
+];
+
+export const getTaskTag = (id) => TASK_TAGS.find(tag => tag.id === id);
+
 export const QUOTES = [
-  '"Every task has its season."',
-  '"Done is better than perfect."',
-  '"Small progress is still progress."',
-  '"One task at a time, one day at a time."',
-  '"Focus on progress, not perfection."',
-  '"Great things take time. ❄️"',
+  '"Mỗi việc nhỏ đều tạo nên tiến độ lớn."',
+  '"Hoàn thành tốt hơn là để mãi trên kế hoạch."',
+  '"Tập trung vào hôm nay, kết quả sẽ rõ ràng hơn."',
+  '"Làm từng việc một, chắc từng bước một."',
+  '"Tiến bộ quan trọng hơn hoàn hảo."',
+  '"Việc khó cũng bắt đầu từ một bước nhỏ."',
 ];
 
 export const AVATAR_EMOJIS = {

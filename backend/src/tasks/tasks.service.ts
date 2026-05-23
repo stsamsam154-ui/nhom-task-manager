@@ -19,7 +19,7 @@ export class TasksService {
       where: { id },
       relations: ['assignee', 'comments'],
     });
-    if (!task) throw new NotFoundException('Task khong ton tai!');
+    if (!task) throw new NotFoundException('Task không tồn tại!');
     return task;
   }
 
@@ -28,11 +28,13 @@ export class TasksService {
     description: string,
     deadline: Date | null,
     assigneeId: number,
+    tag?: string,
   ): Promise<Task> {
     const task = this.tasksRepository.create({
       title,
       description,
       deadline,
+      tag: tag || null,
       assignee: assigneeId ? { id: assigneeId } : null,
     });
     return this.tasksRepository.save(task);
@@ -40,7 +42,7 @@ export class TasksService {
 
   async updateStatus(id: number, status: string): Promise<Task> {
     if (!this.isValidStatus(status)) {
-      throw new BadRequestException('Trang thai task khong hop le!');
+      throw new BadRequestException('Trạng thái task không hợp lệ!');
     }
 
     const task = await this.findOne(id);
@@ -53,11 +55,13 @@ export class TasksService {
     title: string,
     description: string,
     deadline: Date | null,
+    tag?: string,
   ): Promise<Task> {
     const task = await this.findOne(id);
     task.title = title ?? task.title;
     task.description = description ?? task.description;
     task.deadline = deadline ?? task.deadline;
+    task.tag = tag ?? task.tag;
     return this.tasksRepository.save(task);
   }
 
@@ -69,7 +73,7 @@ export class TasksService {
 
   async remove(id: number): Promise<void> {
     const result = await this.tasksRepository.delete(id);
-    if (!result.affected) throw new NotFoundException('Task khong ton tai!');
+    if (!result.affected) throw new NotFoundException('Task không tồn tại!');
   }
 
   private isValidStatus(status: string): status is TaskStatus {

@@ -38,6 +38,9 @@ export class Task {
   @Column({ default: false })
   isImportant: boolean;
 
+  @Column({ nullable: true })
+  tag: string | null;
+
   @Column({ type: 'timestamp', nullable: true })
   deadline: Date | null;
 

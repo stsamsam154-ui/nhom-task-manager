@@ -22,12 +22,13 @@ export class TasksController {
       body.description,
       body.deadline,
       body.assigneeId,
+      body.tag,
     );
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() body: any) {
-    return this.tasksService.update(+id, body.title, body.description, body.deadline);
+    return this.tasksService.update(+id, body.title, body.description, body.deadline, body.tag);
   }
 
   @Put(':id/status')

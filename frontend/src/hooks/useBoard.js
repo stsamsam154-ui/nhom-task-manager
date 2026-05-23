@@ -28,7 +28,7 @@ export function useBoard() {
   };
 
   const deleteTask = async (id) => {
-    if (window.confirm('Xoa task nay?')) {
+    if (window.confirm('Xóa công việc này?')) {
       await taskService.delete(id);
       loadTasks();
     }

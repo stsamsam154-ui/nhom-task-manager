@@ -1,10 +1,11 @@
 import { memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
-import { COLUMNS } from '../../config/seasonConfig';
+import { COLUMNS, getTaskTag } from '../../config/seasonConfig';
 
 function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, onToggleImportant, isDark, col, isBoardDragging }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: task.id });
   const theme = isDark ? col.dark : col.light;
+  const tag = getTaskTag(task.tag);
 
   return (
     <div
@@ -39,6 +40,23 @@ function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, on
 
       {task.description && (
         <p style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '8px', lineHeight: '1.4' }}>{task.description}</p>
+      )}
+
+      {tag && (
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          background: tag.bg,
+          color: tag.text,
+          padding: '3px 8px',
+          borderRadius: '99px',
+          fontSize: '11px',
+          marginBottom: '8px',
+          marginRight: '6px',
+          fontWeight: '800',
+        }}>
+          {tag.label}
+        </div>
       )}
 
       {task.deadline && (

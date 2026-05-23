@@ -46,7 +46,7 @@ export default function AvatarPicker({ onClose, onSave }) {
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 300 }}>
       <div style={{ background: 'white', borderRadius: '24px', width: '500px', maxHeight: '85vh', overflow: 'auto', padding: '2rem', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h3 style={{ margin: 0, fontSize: '20px', fontWeight: '800' }}>Chon Avatar</h3>
+          <h3 style={{ margin: 0, fontSize: '20px', fontWeight: '800' }}>Chọn Avatar</h3>
           <button onClick={onClose} style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '36px', height: '36px', cursor: 'pointer', fontSize: '18px' }}>x</button>
         </div>
 
@@ -54,11 +54,11 @@ export default function AvatarPicker({ onClose, onSave }) {
           <div style={{ fontSize: '64px', lineHeight: 1 }}>{getEmoji(selected)}</div>
           <div>
             <p style={{ fontWeight: '800', fontSize: '18px', marginBottom: '4px' }}>{AVATARS.find(a => a.id === selected)?.name}</p>
-            <p style={{ fontSize: '13px', color: '#64748b' }}>Avatar da chon</p>
+            <p style={{ fontSize: '13px', color: '#64748b' }}>Avatar đã chọn</p>
           </div>
         </div>
 
-        <p style={{ fontWeight: '700', fontSize: '13px', marginBottom: '12px', color: '#475569' }}>Chon con vat cua ban:</p>
+        <p style={{ fontWeight: '700', fontSize: '13px', marginBottom: '12px', color: '#475569' }}>Chọn biểu tượng của bạn:</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px', marginBottom: '1.5rem' }}>
           {AVATARS.map(avatar => (
             <div key={avatar.id} onClick={() => setSelected(avatar.id)}
@@ -70,7 +70,7 @@ export default function AvatarPicker({ onClose, onSave }) {
         </div>
 
         <button onClick={handleSave} style={{ width: '100%', padding: '13px', background: 'linear-gradient(135deg, #667eea, #764ba2)', color: 'white', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: '800', fontSize: '15px', fontFamily: 'Nunito, sans-serif' }}>
-          Luu Avatar
+          Lưu Avatar
         </button>
       </div>
     </div>

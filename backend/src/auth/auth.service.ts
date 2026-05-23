@@ -13,20 +13,20 @@ export class AuthService {
   async register(email: string, password: string, fullName: string) {
     const existing = await this.usersService.findByEmail(email);
     if (existing) {
-      throw new UnauthorizedException('Email da ton tai!');
+      throw new UnauthorizedException('Email đã tồn tại!');
     }
     const user = await this.usersService.create(email, password, fullName);
-    return { message: 'Dang ky thanh cong!', userId: user.id };
+    return { message: 'Đăng ký thành công!', userId: user.id };
   }
 
   async login(email: string, password: string) {
     const user = await this.usersService.findByEmailWithPassword(email);
     if (!user) {
-      throw new UnauthorizedException('Email khong ton tai!');
+      throw new UnauthorizedException('Email không tồn tại!');
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      throw new UnauthorizedException('Mat khau khong dung!');
+      throw new UnauthorizedException('Mật khẩu không đúng!');
     }
     const payload = { sub: user.id, email: user.email, role: user.role };
     return {

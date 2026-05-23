@@ -60,11 +60,11 @@ export class UsersService {
 
   async updateAvatar(id: number, avatar: string): Promise<User> {
     if (!VALID_AVATARS.has(avatar)) {
-      throw new BadRequestException('Avatar khong hop le!');
+      throw new BadRequestException('Avatar không hợp lệ!');
     }
 
     const user = await this.usersRepository.findOne({ where: { id } });
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('Người dùng không tồn tại');
     user.avatar = avatar;
     return this.usersRepository.save(user);
   }

@@ -54,20 +54,20 @@ export default function TaskDetail({ task, onClose, isDark }) {
 
         {task.deadline && (
           <p style={{ fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '1rem' }}>
-            Deadline: <b>{new Date(task.deadline).toLocaleDateString('vi-VN')}</b>
+            Hạn chót: <b>{new Date(task.deadline).toLocaleDateString('vi-VN')}</b>
           </p>
         )}
 
         <hr style={{ border: 'none', borderTop: `1px solid ${isDark ? '#334155' : '#f1f5f9'}`, marginBottom: '1rem' }} />
 
         <h4 style={{ marginBottom: '12px', fontSize: '15px', fontWeight: '700' }}>
-          Comments ({comments.length})
+          Bình luận ({comments.length})
         </h4>
 
         <div style={{ marginBottom: '1rem', maxHeight: '250px', overflowY: 'auto' }}>
           {comments.length === 0 && (
             <p style={{ color: '#94a3b8', fontSize: '13px', textAlign: 'center', padding: '20px' }}>
-              Chua co comment nao!
+              Chưa có bình luận nào!
             </p>
           )}
           {comments.map(c => (
@@ -82,10 +82,10 @@ export default function TaskDetail({ task, onClose, isDark }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ fontSize: '20px' }}>{getAvatarEmoji(c.author?.avatar)}</span>
                   <span style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1' }}>
-                    {c.author?.fullName || 'An danh'}
+                    {c.author?.fullName || 'Ẩn danh'}
                   </span>
                 </div>
-                <button onClick={() => handleDeleteComment(c.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '11px' }}>Xoa</button>
+                <button onClick={() => handleDeleteComment(c.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '11px' }}>Xóa</button>
               </div>
               <p style={{ fontSize: '13px', margin: 0, color: isDark ? '#cbd5e1' : '#334155', paddingLeft: '30px' }}>
                 {c.content}
@@ -99,11 +99,11 @@ export default function TaskDetail({ task, onClose, isDark }) {
           <input
             value={content}
             onChange={e => setContent(e.target.value)}
-            placeholder="Viet comment..."
+            placeholder="Viết bình luận..."
             style={{ flex: 1, padding: '10px 14px', borderRadius: '10px', border: `1.5px solid ${isDark ? '#334155' : '#e2e8f0'}`, fontSize: '13px', outline: 'none', background: isDark ? 'rgba(15,23,42,0.5)' : 'white', color: isDark ? '#f1f5f9' : '#1e293b', fontFamily: 'Nunito, sans-serif' }}
           />
           <button type="submit" style={{ padding: '10px 18px', background: 'linear-gradient(135deg, #667eea, #764ba2)', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '700', fontFamily: 'Nunito, sans-serif' }}>
-            Gui
+            Gửi
           </button>
         </form>
       </div>
