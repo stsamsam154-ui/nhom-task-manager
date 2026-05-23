@@ -1,21 +1,20 @@
-﻿# Nhom Task Manager
+# Nhom Task Manager
 
-Ung dung quan ly cong viec nhom theo mo hinh Kanban Board. Project phu hop cho do an co so vi co day du cac phan chinh: dang ky/dang nhap, quan ly task, keo tha trang thai, deadline, task quan trong, binh luan va giao dien sang/toi.
+Ứng dụng quản lý công việc nhóm theo mô hình Kanban Board. Project có các phần chính: đăng ký/đăng nhập, quản lý task, kéo thả trạng thái, deadline, task quan trọng, bình luận và giao diện sáng/tối.
 
-## Tinh nang chinh
+## Tính năng chính
 
-- Dang ky va dang nhap bang JWT.
-- Quan ly task theo 4 cot: Todo, In Progress, Review, Done.
-- Keo tha task giua cac cot bang `@dnd-kit`.
-- Tao, cap nhat trang thai, danh dau quan trong va xoa task.
-- Dat deadline cho task va hien thi thong bao task qua han/sap den han.
-- Loc task theo tat ca, hom nay, quan trong, sap het han va qua han.
-- Binh luan trong tung task.
-- Doi avatar nguoi dung.
-- Giao dien light/dark mode, da toi uu lai mau sac va spacing de de nhin hon.
-- Da go bo hieu ung particle/hoa roi de thao tac keo tha muot hon.
+- Đăng ký và đăng nhập bằng JWT.
+- Quản lý task theo 4 cột: Todo, In Progress, Review, Done.
+- Kéo thả task giữa các cột bằng `@dnd-kit`.
+- Tạo, cập nhật trạng thái, đánh dấu quan trọng và xóa task.
+- Đặt deadline cho task và hiển thị thông báo task quá hạn/sắp đến hạn.
+- Lọc task theo tất cả, hôm nay, quan trọng, sắp hết hạn và quá hạn.
+- Bình luận trong từng task.
+- Đổi avatar người dùng.
+- Giao diện light/dark mode, đã tối ưu lại màu sắc và spacing để dễ nhìn hơn.
 
-## Cong nghe su dung
+## Công nghệ sử dụng
 
 ### Frontend
 
@@ -33,26 +32,26 @@ Ung dung quan ly cong viec nhom theo mo hinh Kanban Board. Project phu hop cho d
 - Passport JWT
 - Bcrypt
 
-## Cau truc thu muc
+## Cấu trúc thư mục
 
 ```text
 nhom-task-manager/
 |-- backend/      # API NestJS, database entities, auth, task, comment, user
-|-- frontend/     # Giao dien React/Vite
+|-- frontend/     # Giao diện React/Vite
 `-- README.md
 ```
 
-## Yeu cau truoc khi chay
+## Yêu cầu trước khi chạy
 
 - Node.js
 - npm
 - PostgreSQL
 
-Tao database PostgreSQL ten `task_manager` truoc khi chay backend.
+Tạo database PostgreSQL tên `task_manager` trước khi chạy backend.
 
-## Cau hinh backend
+## Cấu hình backend
 
-Tao file `backend/.env` voi noi dung mau:
+Tạo file `backend/.env` với nội dung mẫu:
 
 ```env
 DB_HOST=localhost
@@ -64,11 +63,11 @@ DB_NAME=task_manager
 JWT_SECRET=my_secret_key_123
 ```
 
-Trong moi truong development, TypeORM dang bat `synchronize` de tu dong dong bo bang theo entity. Khi deploy production, nen dat `NODE_ENV=production` va dung migration thay vi synchronize.
+Trong môi trường development, TypeORM đang bật `synchronize` để tự động đồng bộ bảng theo entity. Khi deploy production, nên đặt `NODE_ENV=production` và dùng migration thay vì synchronize.
 
-## Cach chay project
+## Cách chạy project
 
-### 1. Chay backend
+### 1. Chạy backend
 
 ```bash
 cd backend
@@ -76,15 +75,15 @@ npm install
 npm run start:dev
 ```
 
-Backend mac dinh chay tai:
+Backend mặc định chạy tại:
 
 ```text
 http://localhost:3000
 ```
 
-### 2. Chay frontend
+### 2. Chạy frontend
 
-Mo terminal khac:
+Mở terminal khác:
 
 ```bash
 cd frontend
@@ -92,13 +91,13 @@ npm install
 npm run dev
 ```
 
-Frontend mac dinh chay tai:
+Frontend mặc định chạy tại:
 
 ```text
 http://localhost:5173
 ```
 
-## Script hay dung
+## Script hay dùng
 
 ### Frontend
 
@@ -116,32 +115,32 @@ npm run build
 npm run test
 ```
 
-## API chinh
+## API chính
 
-- `POST /auth/register` - dang ky tai khoan
-- `POST /auth/login` - dang nhap
-- `GET /tasks` - lay danh sach task
-- `POST /tasks` - tao task
-- `PUT /tasks/:id` - cap nhat task
-- `PUT /tasks/:id/status` - cap nhat trang thai task
-- `PUT /tasks/:id/important` - bat/tat task quan trong
-- `DELETE /tasks/:id` - xoa task
-- `GET /comments/task/:taskId` - lay comment theo task
-- `POST /comments` - tao comment
-- `DELETE /comments/:id` - xoa comment
-- `PUT /users/:id/avatar` - cap nhat avatar
+- `POST /auth/register` - đăng ký tài khoản
+- `POST /auth/login` - đăng nhập
+- `GET /tasks` - lấy danh sách task
+- `POST /tasks` - tạo task
+- `PUT /tasks/:id` - cập nhật task
+- `PUT /tasks/:id/status` - cập nhật trạng thái task
+- `PUT /tasks/:id/important` - bật/tắt task quan trọng
+- `DELETE /tasks/:id` - xóa task
+- `GET /comments/task/:taskId` - lấy comment theo task
+- `POST /comments` - tạo comment
+- `DELETE /comments/:id` - xóa comment
+- `PUT /users/:id/avatar` - cập nhật avatar
 
-## Ghi chu do an
+## Ghi chú đồ án
 
-Project the hien duoc cac yeu cau nen co cua mot he thong quan ly cong viec nhom:
+Project thể hiện được các yêu cầu nên có của một hệ thống quản lý công việc nhóm:
 
-- Co phan xac thuc nguoi dung.
-- Co CRUD du lieu chinh.
-- Co quan he du lieu giua user, task va comment.
-- Co giao dien truc quan de theo doi tien do.
-- Co deadline va loc task de tang tinh thuc te.
-- Co toi uu trai nghiem keo tha va giao dien.
+- Có phần xác thực người dùng.
+- Có CRUD dữ liệu chính.
+- Có quan hệ dữ liệu giữa user, task và comment.
+- Có giao diện trực quan để theo dõi tiến độ.
+- Có deadline và lọc task để tăng tính thực tế.
+- Có tối ưu trải nghiệm kéo thả và giao diện.
 
-## Thanh vien
+## Thành viên
 
-- Pham Vu Minh Hieu
+- Phạm Vũ Minh Hiếu
