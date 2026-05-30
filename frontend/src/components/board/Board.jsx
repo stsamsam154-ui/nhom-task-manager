@@ -19,9 +19,9 @@ const FILTERS = [
 ];
 
 const PROFILE_THEMES = [
-  { id: 'blue', label: 'Xanh', light: '#f0f2f5', dark: '#0f172a', accent: '#1877f2' },
-  { id: 'green', label: 'Xanh lá', light: '#eef7f1', dark: '#102019', accent: '#16a34a' },
-  { id: 'rose', label: 'Hồng nhẹ', light: '#f8f1f5', dark: '#21121a', accent: '#db2777' },
+  { id: 'blue', label: 'Xanh', light: '#f1f5f9', dark: '#0f172a', accent: '#1877f2', soft: '#e0f2fe' },
+  { id: 'green', label: 'Xanh lá', light: '#eef7f1', dark: '#102019', accent: '#16a34a', soft: '#dcfce7' },
+  { id: 'rose', label: 'Hồng nhẹ', light: '#f8f1f5', dark: '#21121a', accent: '#db2777', soft: '#fce7f3' },
 ];
 
 const startOfDay = (date) => {
@@ -147,8 +147,8 @@ export default function Board() {
   };
 
   const bgGradient = isDark
-    ? profileTheme.dark
-    : profileTheme.light;
+    ? `radial-gradient(circle at top left, ${profileTheme.accent}22, transparent 32%), linear-gradient(135deg, ${profileTheme.dark}, #111827 56%, #0b1120)`
+    : `radial-gradient(circle at top left, ${profileTheme.soft}, transparent 34%), linear-gradient(135deg, ${profileTheme.light}, #f8fafc 48%, #e8eef7)`;
   const firstName = user.fullName?.trim().split(' ').pop() || 'bạn';
   const hour = now.getHours();
   const greeting = hour < 11 ? 'Chào buổi sáng' : hour < 18 ? 'Chào buổi chiều' : 'Chào buổi tối';
@@ -157,9 +157,9 @@ export default function Board() {
     <div style={{ minHeight: '100vh', background: bgGradient, transition: 'background-color 220ms ease' }}>
 
       {/* Header */}
-      <div style={{ background: isDark ? '#111827' : '#ffffff', padding: '12px 24px', borderBottom: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.06)' }}>
+      <div style={{ position: 'sticky', top: 0, zIndex: 80, background: isDark ? 'rgba(17,24,39,0.92)' : 'rgba(255,255,255,0.88)', backdropFilter: 'blur(16px)', padding: '12px 24px', borderBottom: `1px solid ${isDark ? 'rgba(148,163,184,0.18)' : 'rgba(203,213,225,0.9)'}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.18)' : '0 8px 24px rgba(15,23,42,0.06)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src={appIcon} alt="Task Board" style={{ width: '38px', height: '38px', borderRadius: '10px', objectFit: 'cover', boxShadow: '0 2px 8px rgba(15,23,42,0.16)' }} />
+          <img src={appIcon} alt="Task Board" style={{ width: '40px', height: '40px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 5px 14px rgba(15,23,42,0.18)' }} />
           <div>
             <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '800', color: isDark ? '#f1f5f9' : '#1e293b' }}>Task Board</h2>
             <p style={{ margin: 0, fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b', fontStyle: 'italic' }}>
@@ -175,7 +175,7 @@ export default function Board() {
           <button onClick={toggle} style={{ padding: '8px 10px', background: isDark ? '#1f2937' : '#f0f2f5', color: isDark ? '#fbbf24' : '#475569', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, borderRadius: '10px', cursor: 'pointer', fontSize: '17px' }}>
             {isDark ? '☀️' : '🌙'}
           </button>
-          <button onClick={() => setShowForm(true)} style={{ padding: '9px 16px', background: profileTheme.accent, color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '800', fontSize: '13px', fontFamily: 'Nunito, sans-serif' }}>
+          <button onClick={() => setShowForm(true)} style={{ padding: '9px 16px', background: profileTheme.accent, color: 'white', border: 'none', borderRadius: '999px', cursor: 'pointer', fontWeight: '800', fontSize: '13px', fontFamily: 'Nunito, sans-serif', boxShadow: `0 8px 20px ${profileTheme.accent}30` }}>
             + Thêm việc
           </button>
           <button onClick={logout} style={{ padding: '8px 12px', background: isDark ? '#1f2937' : '#f0f2f5', color: isDark ? '#fca5a5' : '#b91c1c', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, borderRadius: '10px', cursor: 'pointer', fontWeight: '700', fontSize: '13px', fontFamily: 'Nunito, sans-serif' }}>
@@ -184,20 +184,20 @@ export default function Board() {
         </div>
       </div>
 
-      <div style={{ padding: '14px 20px 20px' }}>
+      <div style={{ padding: '18px 22px 24px' }}>
         {selectedTask && <TaskDetail task={selectedTask} onClose={() => setSelectedTask(null)} isDark={isDark} />}
         {showAvatarPicker && <AvatarPicker onClose={() => setShowAvatarPicker(false)} onSave={(av) => setUserAvatar(av)} />}
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(260px, 1.2fr) minmax(340px, 2fr)', gap: '12px', marginBottom: '10px' }}>
-          <div style={{ padding: '14px', background: isDark ? '#111827' : '#ffffff', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, borderRadius: '12px', boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.05)' }}>
-            <p style={{ margin: 0, fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: '800' }}>Ngày của tôi</p>
-            <h3 style={{ margin: '4px 0 6px', fontSize: '20px', color: isDark ? '#f8fafc' : '#1e293b' }}>{greeting}, {firstName}</h3>
+          <div style={{ padding: '16px', background: isDark ? 'rgba(17,24,39,0.92)' : 'rgba(255,255,255,0.92)', border: `1px solid ${isDark ? 'rgba(148,163,184,0.18)' : 'rgba(203,213,225,0.85)'}`, borderRadius: '16px', boxShadow: isDark ? '0 14px 32px rgba(0,0,0,0.18)' : '0 14px 32px rgba(15,23,42,0.08)' }}>
+            <p style={{ margin: 0, fontSize: '12px', color: profileTheme.accent, fontWeight: '900' }}>Ngày của tôi</p>
+            <h3 style={{ margin: '4px 0 6px', fontSize: '22px', color: isDark ? '#f8fafc' : '#1e293b' }}>{greeting}, {firstName}</h3>
             <p style={{ margin: 0, fontSize: '12px', lineHeight: 1.5, color: isDark ? '#cbd5e1' : '#475569' }}>
               Hôm nay có {dashboardStats[3].value} công việc đến hạn và {dashboardStats[4].value} công việc quá hạn cần chú ý.
             </p>
           </div>
 
-          <div style={{ padding: '12px', background: isDark ? '#111827' : '#ffffff', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, borderRadius: '12px', boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.05)' }}>
+          <div style={{ padding: '14px', background: isDark ? 'rgba(17,24,39,0.92)' : 'rgba(255,255,255,0.92)', border: `1px solid ${isDark ? 'rgba(148,163,184,0.18)' : 'rgba(203,213,225,0.85)'}`, borderRadius: '16px', boxShadow: isDark ? '0 14px 32px rgba(0,0,0,0.18)' : '0 14px 32px rgba(15,23,42,0.08)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'center', marginBottom: '10px' }}>
               <p style={{ margin: 0, fontSize: '13px', fontWeight: '900', color: isDark ? '#f8fafc' : '#1e293b' }}>Tổng quan nhanh</p>
               <div style={{ display: 'flex', gap: '6px' }}>
@@ -220,7 +220,7 @@ export default function Board() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
               {dashboardStats.map(stat => (
-                <div key={stat.label} style={{ padding: '10px', borderRadius: '10px', background: isDark ? '#1f2937' : '#f8fafc', border: `1px solid ${isDark ? 'rgba(148,163,184,0.14)' : '#e2e8f0'}` }}>
+                <div key={stat.label} style={{ padding: '11px', borderRadius: '12px', background: isDark ? 'rgba(31,41,55,0.9)' : '#f8fafc', border: `1px solid ${isDark ? 'rgba(148,163,184,0.14)' : '#e2e8f0'}`, boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.04)' }}>
                   <p style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: stat.color }}>{stat.value}</p>
                   <p style={{ margin: '2px 0 0', fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: '800' }}>{stat.label}</p>
                 </div>
@@ -229,7 +229,7 @@ export default function Board() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '10px', padding: '9px 10px', background: isDark ? '#111827' : '#ffffff', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`, borderRadius: '12px', boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.05)' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '12px', padding: '10px', background: isDark ? 'rgba(17,24,39,0.88)' : 'rgba(255,255,255,0.9)', border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : 'rgba(203,213,225,0.85)'}`, borderRadius: '16px', boxShadow: isDark ? '0 10px 24px rgba(0,0,0,0.12)' : '0 10px 24px rgba(15,23,42,0.06)' }}>
           {FILTERS.map(filter => {
             const isActive = activeFilter === filter.id;
             return (
@@ -255,12 +255,12 @@ export default function Board() {
 
         {deadlineAlerts.length > 0 && (
           <div style={{
-            marginBottom: '10px',
+            marginBottom: '12px',
             padding: '11px 12px',
-            borderRadius: '12px',
-            background: isDark ? '#111827' : '#ffffff',
-            border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : '#d8dde6'}`,
-            boxShadow: isDark ? 'none' : '0 1px 2px rgba(15,23,42,0.05)',
+            borderRadius: '16px',
+            background: isDark ? 'rgba(17,24,39,0.9)' : 'rgba(255,255,255,0.92)',
+            border: `1px solid ${isDark ? 'rgba(148,163,184,0.16)' : 'rgba(203,213,225,0.85)'}`,
+            boxShadow: isDark ? '0 10px 24px rgba(0,0,0,0.12)' : '0 10px 24px rgba(15,23,42,0.06)',
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
               <div>

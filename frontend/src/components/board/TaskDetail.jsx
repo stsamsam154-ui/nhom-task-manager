@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { commentService } from '../../services/api';
 import { getAvatarEmoji } from '../../config/seasonConfig';
 
@@ -7,12 +7,15 @@ export default function TaskDetail({ task, onClose, isDark }) {
   const [content, setContent] = useState('');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  useEffect(() => { loadComments(); }, []);
-
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     const res = await commentService.getByTask(task.id);
     setComments(res.data);
-  };
+  }, [task.id]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadComments();
+  }, [loadComments]);
 
   const handleComment = async (e) => {
     e.preventDefault();

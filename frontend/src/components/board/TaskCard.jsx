@@ -20,15 +20,16 @@ function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, on
           ? (isDark ? 'rgba(69,58,23,0.92)' : '#fffbeb')
           : (isDark ? 'rgba(30,41,59,0.92)' : '#ffffff'),
         border: `1px solid ${task.isImportant ? '#facc15' : (isDark ? 'rgba(148,163,184,0.16)' : '#e2e8f0')}`,
-        borderRadius: '10px',
-        padding: '11px',
-        marginBottom: '8px',
+        borderLeft: `4px solid ${tag?.text || (task.isImportant ? '#facc15' : theme.accent)}`,
+        borderRadius: '14px',
+        padding: '12px',
+        marginBottom: '10px',
         cursor: 'grab',
         opacity: isDragging ? 0.3 : 1,
         transform: isDragging ? 'translateZ(0) scale(1.02)' : undefined,
         boxShadow: isDragging
-          ? '0 10px 24px rgba(0,0,0,0.16)'
-          : (isBoardDragging ? 'none' : '0 1px 2px rgba(15,23,42,0.08)'),
+          ? '0 14px 30px rgba(0,0,0,0.18)'
+          : (isBoardDragging ? 'none' : (isDark ? '0 8px 18px rgba(0,0,0,0.16)' : '0 8px 18px rgba(15,23,42,0.08)')),
         transition: isBoardDragging ? 'none' : 'box-shadow 160ms ease, transform 160ms ease',
         willChange: isDragging ? 'transform, opacity' : undefined,
         contain: 'layout paint',

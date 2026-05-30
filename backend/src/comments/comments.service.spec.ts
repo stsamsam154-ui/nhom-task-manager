@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Comment } from './comment.entity';
 import { CommentsService } from './comments.service';
 
 describe('CommentsService', () => {
@@ -6,7 +8,18 @@ describe('CommentsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CommentsService],
+      providers: [
+        CommentsService,
+        {
+          provide: getRepositoryToken(Comment),
+          useValue: {
+            find: jest.fn(),
+            create: jest.fn(),
+            save: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<CommentsService>(CommentsService);

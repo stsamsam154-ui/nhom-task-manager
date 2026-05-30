@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { taskService } from '../services/api';
 
@@ -6,16 +6,19 @@ export function useBoard() {
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => { loadTasks(); }, []);
-
-  const loadTasks = async () => {
+  const loadTasks = useCallback(async () => {
     try {
       const res = await taskService.getAll();
       setTasks(res.data);
     } catch {
       navigate('/');
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadTasks();
+  }, [loadTasks]);
 
   const createTask = async (form, userId) => {
     await taskService.create({ ...form, assigneeId: userId });

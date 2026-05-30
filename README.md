@@ -1,17 +1,19 @@
 # Nhom Task Manager
 
-Ứng dụng quản lý công việc nhóm theo mô hình Kanban Board. Project có các phần chính: đăng ký/đăng nhập, quản lý task, kéo thả trạng thái, deadline, task quan trọng, bình luận và giao diện sáng/tối.
+Ứng dụng quản lý công việc nhóm theo mô hình Kanban Board. Project có các phần chính: đăng ký/đăng nhập, quản lý task, kéo thả trạng thái, deadline, task quan trọng, bình luận, nhãn màu và giao diện sáng/tối.
 
 ## Tính năng chính
 
 - Đăng ký và đăng nhập bằng JWT.
-- Quản lý task theo 4 cột: Todo, In Progress, Review, Done.
+- Quản lý task theo 4 cột: Cần làm, Đang làm, Đánh giá, Hoàn thành.
 - Kéo thả task giữa các cột bằng `@dnd-kit`.
 - Tạo, cập nhật trạng thái, đánh dấu quan trọng và xóa task.
 - Đặt deadline cho task và hiển thị thông báo task quá hạn/sắp đến hạn.
 - Lọc task theo tất cả, hôm nay, quan trọng, sắp hết hạn và quá hạn.
 - Bình luận trong từng task.
 - Đổi avatar người dùng.
+- Gắn nhãn màu cho task: Học tập, Nhóm, Gấp, Cá nhân.
+- Khu vực Ngày của tôi và Tổng quan nhanh để theo dõi tiến độ.
 - Giao diện light/dark mode, đã tối ưu lại màu sắc và spacing để dễ nhìn hơn.
 
 ## Công nghệ sử dụng
@@ -49,7 +51,16 @@ nhom-task-manager/
 
 Tạo database PostgreSQL tên `task_manager` trước khi chạy backend.
 
-## Cấu hình backend
+## Cấu hình môi trường
+
+Project có sẵn file mẫu:
+
+- `backend/.env.example`
+- `frontend/.env.example`
+
+Khi chạy lần đầu, có thể copy file mẫu thành `.env` rồi chỉnh lại thông tin phù hợp với máy.
+
+### Backend
 
 Tạo file `backend/.env` với nội dung mẫu:
 
@@ -61,9 +72,18 @@ DB_PASSWORD=123456
 DB_NAME=task_manager
 
 JWT_SECRET=my_secret_key_123
+FRONTEND_URL=http://localhost:5173
 ```
 
 Trong môi trường development, TypeORM đang bật `synchronize` để tự động đồng bộ bảng theo entity. Khi deploy production, nên đặt `NODE_ENV=production` và dùng migration thay vì synchronize.
+
+### Frontend
+
+Tạo file `frontend/.env` nếu muốn đổi địa chỉ API:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
 
 ## Cách chạy project
 
@@ -111,6 +131,20 @@ npm run lint
 
 ```bash
 npm run start:dev
+npm run build
+npm run test
+```
+
+## Kiểm tra trước khi nộp
+
+Các lệnh đã dùng để kiểm tra project:
+
+```bash
+cd frontend
+npm run lint
+npm run build
+
+cd ../backend
 npm run build
 npm run test
 ```
