@@ -28,12 +28,19 @@ export class TasksService {
     description: string,
     deadline: Date | null,
     assigneeId: number,
+    status?: string,
     tag?: string,
   ): Promise<Task> {
+    if (status && !this.isValidStatus(status)) {
+      throw new BadRequestException('Trạng thái task không hợp lệ!');
+    }
+
+    const taskStatus = status ? (status as TaskStatus) : TaskStatus.TODO;
     const task = this.tasksRepository.create({
       title,
       description,
       deadline,
+      status: taskStatus,
       tag: tag || null,
       assignee: assigneeId ? { id: assigneeId } : null,
     });
