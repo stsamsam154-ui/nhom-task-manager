@@ -24,6 +24,9 @@ function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, on
         borderRadius: '14px',
         padding: '12px',
         marginBottom: '10px',
+        minHeight: '142px',
+        display: 'flex',
+        flexDirection: 'column',
         cursor: 'grab',
         opacity: isDragging ? 0.3 : 1,
         transform: isDragging ? 'translateZ(0) scale(1.02)' : undefined,
@@ -39,9 +42,18 @@ function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, on
         <span style={{ fontSize: '14px', marginLeft: '6px' }}>{task.isImportant ? '⭐' : ''}</span>
       </div>
 
-      {task.description && (
-        <p style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '8px', lineHeight: '1.4' }}>{task.description}</p>
-      )}
+      <p style={{
+        minHeight: '17px',
+        fontSize: '12px',
+        color: isDark ? '#94a3b8' : '#64748b',
+        marginBottom: '8px',
+        lineHeight: '1.4',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+      }}>
+        {task.description || ''}
+      </p>
 
       {tag && (
         <div style={{
@@ -72,7 +84,7 @@ function TaskCard({ task, isNearDeadline, onDelete, onStatusChange, onSelect, on
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }} onPointerDown={e => e.stopPropagation()}>
+      <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }} onPointerDown={e => e.stopPropagation()}>
         <button
           onClick={() => onToggleImportant(task.id)}
           style={{ padding: '5px 8px', background: task.isImportant ? '#fef3c7' : (isDark ? 'rgba(51,65,85,0.7)' : '#f1f5f9'), color: task.isImportant ? '#d97706' : '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '14px' }}>

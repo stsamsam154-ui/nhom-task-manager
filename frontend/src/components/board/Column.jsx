@@ -5,6 +5,9 @@ import TaskCard from './TaskCard';
 function Column({ col, tasks, isNearDeadline, onDelete, onStatusChange, onSelect, onToggleImportant, isDark, isDragging }) {
   const { setNodeRef, isOver } = useDroppable({ id: col.id });
   const theme = isDark ? col.dark : col.light;
+  const columnTint = isDark
+    ? `linear-gradient(135deg, ${theme.accent}28, rgba(15,23,42,0.18))`
+    : `linear-gradient(135deg, ${theme.accent}24, rgba(255,255,255,0.82))`;
 
   return (
     <div
@@ -24,18 +27,30 @@ function Column({ col, tasks, isNearDeadline, onDelete, onStatusChange, onSelect
         border: `1px solid ${isOver ? theme.accent : (isDark ? 'rgba(148,163,184,0.18)' : 'rgba(203,213,225,0.9)')}`,
         borderTop: `4px solid ${theme.accent}`,
         boxShadow: isOver
-          ? (isDragging ? `0 0 0 1px ${theme.accent}35` : `0 16px 34px rgba(15,23,42,0.12)`)
-          : (isDragging ? 'none' : (isDark ? '0 14px 30px rgba(0,0,0,0.18)' : '0 14px 30px rgba(15,23,42,0.07)')),
+          ? `0 0 0 2px ${theme.accent}55, 0 16px 34px rgba(15,23,42,0.12)`
+          : (isDark ? '0 10px 24px rgba(0,0,0,0.14)' : '0 10px 24px rgba(15,23,42,0.06)'),
         overflow: 'hidden',
         contain: 'layout paint',
       }}>
 
       {/* Column Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', paddingBottom: '10px', borderBottom: `1px solid ${isDark ? 'rgba(148,163,184,0.15)' : '#e2e8f0'}`, position: 'relative', zIndex: 10 }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '12px',
+        padding: '9px 10px',
+        borderRadius: '12px',
+        background: columnTint,
+        border: `1px solid ${theme.accent}30`,
+        position: 'relative',
+        zIndex: 10,
+      }}>
         <span style={{ fontWeight: '800', fontSize: '14px', color: isDark ? '#e2e8f0' : '#1e293b' }}>{col.label}</span>
         <span style={{
-          background: isDark ? 'rgba(51,65,85,0.72)' : '#e2e8f0',
-          color: isDark ? '#e2e8f0' : '#475569',
+          background: isDark ? 'rgba(15,23,42,0.72)' : 'rgba(255,255,255,0.88)',
+          color: isDark ? '#e2e8f0' : theme.text,
+          border: `1px solid ${theme.accent}28`,
           borderRadius: '99px',
           padding: '2px 10px',
           fontSize: '12px',
